@@ -2,9 +2,9 @@
 
 Go module: a **shared kit** for building domain decision engines.
 
-This is not a universal PDP service. It does not decide payments, fraud, or IAM in one place. It packages the chassis domains keep reinventing: snapshot evaluate, closed outcomes, audit/idempotency helpers, and shadow vs enforce plumbing.
+This is not a hosted, company-wide decision service. It does not evaluate domain policy or enforce outcomes. It packages the chassis domain engines keep reinventing: snapshot evaluate, closed outcomes, audit/idempotency helpers, and optional shadow vs authoritative cutover.
 
-Domain products (positive pay, risk/intercept-style engines, and others) own their schemas, policy types, and outcome vocabulary. They import this kit.
+Each domain engine owns its schemas, policy types, and outcome vocabulary. Engines written in Go import this kit.
 
 See [docs/README.md](docs/README.md).
 
@@ -18,11 +18,11 @@ Tags are cut **automatically on merge to `master`**. Policy: [docs/versioning.md
 
 ## Install
 
-Private repo — set `GOPRIVATE` first:
+Private repository — set `GOPRIVATE` first:
 
 ```bash
 go env -w GOPRIVATE=github.com/dmmoody/*
-go get github.com/dmmoody/decision-platform-kit@v0.1.0
+go get github.com/dmmoody/decision-platform-kit@latest
 ```
 
 ## Packages
@@ -30,8 +30,8 @@ go get github.com/dmmoody/decision-platform-kit@v0.1.0
 | Import | Role |
 |--------|------|
 | `…/decide` | Generic load → dispose → commit harness (`Decide`, `Engine`) |
-| `…/effect` | `shadow` / `authoritative` stamp |
-| `…/example/toy` | Minimal domain showing how to wire the kit (not for production) |
+| `…/effect` | Optional `shadow` / `authoritative` stamp |
+| `…/example/toy` | Minimal wiring demo (not for production use) |
 
 ```go
 import (
@@ -42,4 +42,4 @@ import (
 
 ## Status
 
-Spike under semver `v0`. Do not assume API stability until `v1.0.0`.
+Semver `v0`: API may still change. Treat `v1.0.0` as the stability promise.

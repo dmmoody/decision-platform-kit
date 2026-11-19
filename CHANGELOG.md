@@ -5,6 +5,10 @@ Versions match git tags (`vMAJOR.MINOR.PATCH`).
 
 ## [Unreleased]
 
+### Changed
+
+- Neutralize package comments and docs so the kit is not framed as money-movement-specific
+
 ### Added
 
 - `decide.Engine` with constructor `New` and request validation
