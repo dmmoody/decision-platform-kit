@@ -57,4 +57,4 @@ Where a domain needs cutover without dual brains, the kit will treat **effect** 
 4. Example domain stub in-repo (toy, not production positive pay)
 5. Extract only what a second real consumer needs
 
-Copy until the second consumer; then harden the kit API and tag a module version.
+Copy until the second consumer; then harden the kit API. Versions are git tags (`v0.x` while spiking); see [versioning.md](versioning.md).
