@@ -6,15 +6,6 @@ package decide
 
 import "context"
 
-// Request is the kit-level identity for one decide attempt.
-// Domains may embed richer envelopes; the harness only needs these fields.
-type Request struct {
-	// Key is the caller-chosen idempotency key for this attempt.
-	Key string
-	// Tenant is an opaque tenant stamp (institution id, tenant path, …).
-	Tenant string
-}
-
 // SnapshotLoader loads an immutable evaluation snapshot for the request.
 type SnapshotLoader[S any] interface {
 	Load(ctx context.Context, req Request) (S, error)
@@ -30,7 +21,28 @@ type Recorder[O any] interface {
 	Commit(ctx context.Context, req Request, out O) error
 }
 
-// Decide loads a snapshot, disposes once, then commits the outcome.
+// Engine binds load, dispose, and record collaborators for repeated Decide calls.
+type Engine[S, O any] struct {
+	load    SnapshotLoader[S]
+	dispose Disposer[S, O]
+	rec     Recorder[O]
+}
+
+// New constructs an Engine. All collaborators are required.
+func New[S, O any](load SnapshotLoader[S], dispose Disposer[S, O], rec Recorder[O]) *Engine[S, O] {
+	return &Engine[S, O]{
+		load:    load,
+		dispose: dispose,
+		rec:     rec,
+	}
+}
+
+// Decide validates the request, then load → dispose → commit.
+func (e *Engine[S, O]) Decide(ctx context.Context, req Request) (O, error) {
+	return run(ctx, e.load, e.dispose, e.rec, req)
+}
+
+// Decide is a one-shot harness when the caller does not keep an Engine.
 // Domain gates (permits, request-key replay, budgets) stay beside or wrap this.
 func Decide[S, O any](
 	ctx context.Context,
@@ -39,7 +51,21 @@ func Decide[S, O any](
 	rec Recorder[O],
 	req Request,
 ) (O, error) {
+	return run(ctx, load, dispose, rec, req)
+}
+
+func run[S, O any](
+	ctx context.Context,
+	load SnapshotLoader[S],
+	dispose Disposer[S, O],
+	rec Recorder[O],
+	req Request,
+) (O, error) {
 	var zero O
+
+	if err := req.Validate(); err != nil {
+		return zero, err
+	}
 
 	snap, err := load.Load(ctx, req)
 	if err != nil {

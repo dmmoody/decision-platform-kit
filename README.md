@@ -14,6 +14,32 @@ See [docs/README.md](docs/README.md).
 github.com/dmmoody/decision-platform-kit
 ```
 
+Tags are cut **automatically on merge to `master`**. Policy: [docs/versioning.md](docs/versioning.md). Changes: [CHANGELOG.md](CHANGELOG.md).
+
+## Install
+
+Private repo — set `GOPRIVATE` first:
+
+```bash
+go env -w GOPRIVATE=github.com/dmmoody/*
+go get github.com/dmmoody/decision-platform-kit@v0.1.0
+```
+
+## Packages
+
+| Import | Role |
+|--------|------|
+| `…/decide` | Generic load → dispose → commit harness (`Decide`, `Engine`) |
+| `…/effect` | `shadow` / `authoritative` stamp |
+| `…/example/toy` | Minimal domain showing how to wire the kit (not for production) |
+
+```go
+import (
+    "github.com/dmmoody/decision-platform-kit/decide"
+    "github.com/dmmoody/decision-platform-kit/effect"
+)
+```
+
 ## Status
 
-Spike. APIs will change. Do not treat the surface as stable until a tagged release says so.
+Spike under semver `v0`. Do not assume API stability until `v1.0.0`.

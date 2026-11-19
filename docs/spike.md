@@ -9,11 +9,13 @@ A thin Go module can remove duplicated decide plumbing across domain engines **w
 ## In scope for the spike
 
 - [x] Repo + module + docs stating the boundary
-- [ ] `decide` package: `Decide` harness with `SnapshotLoader` / `Disposer` / `Recorder`
-- [ ] Unit test with a toy snapshot/outcome (in-kit example, not a real product)
+- [x] `decide` package: `Decide` harness with `SnapshotLoader` / `Disposer` / `Recorder`
+- [x] Unit test with a toy snapshot/outcome (in-kit example, not a real product)
+- [x] Semver via git tags, CHANGELOG, consumer `GOPRIVATE` docs, CI
+- [x] Expand module: `decide.Engine`, `effect`, `example/toy`
+- [x] Auto-version on merge to `master` (workflow + bump scripts)
 - [ ] Document how a money-movement engine would plug in (adapter sketch only)
 - [ ] Document how a risk-style engine would plug in (adapter sketch only)
-- [ ] Note what stays out (lists, PIPs, shared outcome enum)
 
 ## Out of scope for the spike
 
@@ -31,4 +33,4 @@ A thin Go module can remove duplicated decide plumbing across domain engines **w
 
 ## Next after spike
 
-Promote stable packages, add a tagged version, and optionally extract helpers from `poz-pay` once the harness matches real seams (inbox/outbox, request key, effect).
+Tag `v0.1.0` on the release commit (see [versioning.md](versioning.md)). Optionally extract helpers from `poz-pay` once the harness matches real seams (inbox/outbox, request key, effect). Aim for `v1.0.0` only when the public `decide` API is something we will not break lightly.
