@@ -1,0 +1,66 @@
+name: release
+
+on:
+  push:
+    branches: [master]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    # Skip if the push is already a version tag update with no new subjects
+    # (tag pushes do not hit this workflow; merge commits do).
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: Test
+        run: go test ./...
+
+      - name: Skip release marker
+        id: skip
+        run: |
+          subject="$(git log -1 --format='%s')"
+          if [[ "${subject}" == *"[skip release]"* ]]; then
+            echo "skip=true" >>"$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >>"$GITHUB_OUTPUT"
+          fi
+
+      - name: Compute next version
+        id: ver
+        if: steps.skip.outputs.skip != 'true'
+        run: |
+          chmod +x scripts/next-version.sh scripts/release-notes.sh
+          next="$(./scripts/next-version.sh)"
+          echo "version=${next}" >>"$GITHUB_OUTPUT"
+          echo "Next version: ${next}"
+
+      - name: Create tag and GitHub Release
+        if: steps.skip.outputs.skip != 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ steps.ver.outputs.version }}
+        run: |
+          set -euo pipefail
+          if git rev-parse -q --verify "refs/tags/${VERSION}" >/dev/null; then
+            echo "Tag ${VERSION} already exists; skipping"
+            exit 0
+          fi
+
+          notes="$(./scripts/release-notes.sh)"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag -a "${VERSION}" -m "${VERSION}"
+          git push origin "refs/tags/${VERSION}"
+
+          gh release create "${VERSION}" \
+            --title "${VERSION}" \
+            --notes "$(printf '%s\n\n## Commits\n\n%s\n' "Automated release on merge to master." "${notes}")"

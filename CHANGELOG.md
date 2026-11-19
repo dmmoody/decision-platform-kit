@@ -10,6 +10,7 @@ Versions match git tags (`vMAJOR.MINOR.PATCH`).
 - `decide.Engine` with constructor `New` and request validation
 - `effect` package (`shadow` / `authoritative`)
 - `example/toy` domain showing kit wiring
+- Auto-release on merge to `master` (semver tag + GitHub Release)
 
 ## [v0.1.0] - 2026-11-19
 

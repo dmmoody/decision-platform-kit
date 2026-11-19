@@ -13,6 +13,7 @@ A thin Go module can remove duplicated decide plumbing across domain engines **w
 - [x] Unit test with a toy snapshot/outcome (in-kit example, not a real product)
 - [x] Semver via git tags, CHANGELOG, consumer `GOPRIVATE` docs, CI
 - [x] Expand module: `decide.Engine`, `effect`, `example/toy`
+- [x] Auto-version on merge to `master` (workflow + bump scripts)
 - [ ] Document how a money-movement engine would plug in (adapter sketch only)
 - [ ] Document how a risk-style engine would plug in (adapter sketch only)
 

@@ -14,7 +14,7 @@ See [docs/README.md](docs/README.md).
 github.com/dmmoody/decision-platform-kit
 ```
 
-Current release tag: **`v0.1.0`** (`v0` = spike; breaking changes allowed). Versioning: [docs/versioning.md](docs/versioning.md). Changes: [CHANGELOG.md](CHANGELOG.md).
+Tags are cut **automatically on merge to `master`**. Policy: [docs/versioning.md](docs/versioning.md). Changes: [CHANGELOG.md](CHANGELOG.md).
 
 ## Install
 
