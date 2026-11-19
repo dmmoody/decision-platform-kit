@@ -72,4 +72,5 @@ Intended import paths:
 - `github.com/dmmoody/decision-platform-kit/decide`
 - `github.com/dmmoody/decision-platform-kit/effect`
 
-`example/toy` is demonstrative only. Anything under `internal/` (when added) is not importable by other modules.
+`example/toy` is demonstrative only and not part of the supported API.
+Anything under `internal/` (when added) is not importable by other modules.

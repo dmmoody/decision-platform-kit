@@ -1,7 +1,7 @@
 // Package decide is a thin harness for domain decision engines.
 //
 // Domains supply snapshot type S and outcome type O. This package does not
-// know payment rails, fraud signals, or IAM resources.
+// define business outcomes, policy stores, or enforcement actions.
 package decide
 
 import "context"
@@ -16,7 +16,7 @@ type Disposer[S, O any] interface {
 	Dispose(ctx context.Context, snap S) (O, error)
 }
 
-// Recorder persists the outcome (and domain audit/outbox) after dispose.
+// Recorder persists the outcome (and domain audit or outbox) after dispose.
 type Recorder[O any] interface {
 	Commit(ctx context.Context, req Request, out O) error
 }
@@ -43,7 +43,7 @@ func (e *Engine[S, O]) Decide(ctx context.Context, req Request) (O, error) {
 }
 
 // Decide is a one-shot harness when the caller does not keep an Engine.
-// Domain gates (permits, request-key replay, budgets) stay beside or wrap this.
+// Domain gates (authorization, request-key replay, budgets) stay beside or wrap this.
 func Decide[S, O any](
 	ctx context.Context,
 	load SnapshotLoader[S],

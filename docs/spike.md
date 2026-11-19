@@ -1,10 +1,8 @@
 # Spike plan
 
-Branch: `DOC-spike-decision-kit`
-
 ## Hypothesis
 
-A thin Go module can remove duplicated decide plumbing across domain engines **without** becoming a universal PDP service.
+A thin Go module can remove duplicated decide plumbing across domain engines **without** becoming a universal hosted decision service.
 
 ## In scope for the spike
 
@@ -14,23 +12,24 @@ A thin Go module can remove duplicated decide plumbing across domain engines **w
 - [x] Semver via git tags, CHANGELOG, consumer `GOPRIVATE` docs, CI
 - [x] Expand module: `decide.Engine`, `effect`, `example/toy`
 - [x] Auto-version on merge to `master` (workflow + bump scripts)
-- [ ] Document how a money-movement engine would plug in (adapter sketch only)
-- [ ] Document how a risk-style engine would plug in (adapter sketch only)
+- [x] Domain-neutral public docs and package comments
+- [ ] Adapter sketches for two example domains (optional teaching docs)
 
 ## Out of scope for the spike
 
-- Production positive-pay or intercept integration
+- Production integration into any specific product
 - Policy authoring UI
 - Expression language runtime
 - Multi-tenant cloud deployment of “the kit” as a service
 
 ## Success criteria
 
-1. A reader understands why this is not Axiomatics-for-everything
+1. A reader understands why this is not a company-wide decision service
 2. A Go engineer can implement a fake domain decide path using the harness in under an hour
 3. No package in the kit imports a product domain
 4. Module builds and tests pass with stdlib only for the spike
+5. Public godoc and README do not bind the kit to one business domain
 
 ## Next after spike
 
-Tag `v0.1.0` on the release commit (see [versioning.md](versioning.md)). Optionally extract helpers from `poz-pay` once the harness matches real seams (inbox/outbox, request key, effect). Aim for `v1.0.0` only when the public `decide` API is something we will not break lightly.
+Live on `v0.x` with real Go consumers. Extract helpers (request-key replay, inbox/outbox) only when a second consumer needs them. Aim for `v1.0.0` when the public `decide` API is something we will not break lightly.

@@ -7,7 +7,7 @@ import "fmt"
 type Request struct {
 	// Key is the caller-chosen idempotency key for this attempt.
 	Key string
-	// Tenant is an opaque tenant stamp (institution id, tenant path, …).
+	// Tenant is an opaque tenant stamp for the decide scope.
 	Tenant string
 }
 

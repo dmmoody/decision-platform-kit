@@ -1,12 +1,12 @@
 // Package effect defines the shadow vs authoritative stamp for a recorded decision.
 //
-// The kit records effect; callers (PEPs) choose whether to act on it.
+// The kit records effect; callers that enforce choose whether to act on it.
 // Domains that do not need cutover may ignore this package.
 package effect
 
 import "fmt"
 
-// Effect is whether money-moving or other irreversible action may follow the outcome.
+// Effect is whether irreversible side effects may follow the outcome.
 type Effect string
 
 const (
