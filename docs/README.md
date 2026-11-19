@@ -47,7 +47,7 @@ This kit helps you build domain PDPs consistently. It is not “the” PDP.
 
 ## Spike goals
 
-See [spike.md](spike.md). Architecture intent: [architecture.md](architecture.md).
+See [spike.md](spike.md). Architecture intent: [architecture.md](architecture.md). Versioning: [versioning.md](versioning.md).
 
 ## Related product docs (out of tree)
 
