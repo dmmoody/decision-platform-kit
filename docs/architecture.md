@@ -26,17 +26,15 @@ Each domain service remains the system of record for its policy data and outcome
 
 Variation is interfaces and generics, not `AbstractDecisionEngine` subclasses.
 
-Typical spike surface (names will evolve):
+Public packages (v0; names may still evolve):
 
-| Symbol | Role |
-|--------|------|
-| `Request` | Caller identity for this decide (key, tenant scope stamps) |
-| `SnapshotLoader[S]` | Domain loads immutable snapshot `S` for the request |
-| `Disposer[S, O]` | Domain turns snapshot into closed outcome `O` |
-| `Recorder[O]` | Domain commits outcome + audit/outbox as it defines |
-| `Decide` | Kit orchestrates load → dispose → record (and later gates) |
+| Package | Role |
+|---------|------|
+| `decide` | `Request`, `SnapshotLoader`, `Disposer`, `Recorder`, `Decide`, `Engine` |
+| `effect` | `shadow` / `authoritative` |
+| `example/toy` | In-repo wiring demo only |
 
-Domain packages own `S` and `O`. The kit never imports domain types.
+Domain packages own snapshot `S` and outcome `O`. The kit never imports product domains.
 
 ## Effect / shadow
 

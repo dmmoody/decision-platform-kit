@@ -14,7 +14,7 @@ See [docs/README.md](docs/README.md).
 github.com/dmmoody/decision-platform-kit
 ```
 
-Current release: **`v0.1.0`** (`v0` = spike; breaking changes allowed). Versioning policy: [docs/versioning.md](docs/versioning.md). Changes: [CHANGELOG.md](CHANGELOG.md).
+Current release tag: **`v0.1.0`** (`v0` = spike; breaking changes allowed). Versioning: [docs/versioning.md](docs/versioning.md). Changes: [CHANGELOG.md](CHANGELOG.md).
 
 ## Install
 
@@ -25,15 +25,20 @@ go env -w GOPRIVATE=github.com/dmmoody/*
 go get github.com/dmmoody/decision-platform-kit@v0.1.0
 ```
 
-```go
-import "github.com/dmmoody/decision-platform-kit/decide"
-```
-
 ## Packages
 
 | Import | Role |
 |--------|------|
-| `…/decide` | Generic load → dispose → commit harness |
+| `…/decide` | Generic load → dispose → commit harness (`Decide`, `Engine`) |
+| `…/effect` | `shadow` / `authoritative` stamp |
+| `…/example/toy` | Minimal domain showing how to wire the kit (not for production) |
+
+```go
+import (
+    "github.com/dmmoody/decision-platform-kit/decide"
+    "github.com/dmmoody/decision-platform-kit/effect"
+)
+```
 
 ## Status
 

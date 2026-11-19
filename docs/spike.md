@@ -12,9 +12,9 @@ A thin Go module can remove duplicated decide plumbing across domain engines **w
 - [x] `decide` package: `Decide` harness with `SnapshotLoader` / `Disposer` / `Recorder`
 - [x] Unit test with a toy snapshot/outcome (in-kit example, not a real product)
 - [x] Semver via git tags, CHANGELOG, consumer `GOPRIVATE` docs, CI
+- [x] Expand module: `decide.Engine`, `effect`, `example/toy`
 - [ ] Document how a money-movement engine would plug in (adapter sketch only)
 - [ ] Document how a risk-style engine would plug in (adapter sketch only)
-- [ ] Note what stays out (lists, PIPs, shared outcome enum) — covered in docs/README; expand if needed
 
 ## Out of scope for the spike
 
